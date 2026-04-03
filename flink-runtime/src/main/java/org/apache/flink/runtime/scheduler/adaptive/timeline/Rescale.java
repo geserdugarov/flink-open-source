@@ -196,11 +196,20 @@ public class Rescale implements Serializable {
     }
 
     @Nullable
+    public TerminatedReason getTerminatedReason() {
+        return terminatedReason;
+    }
+
+    public RescaleIdInfo getRescaleIdInfo() {
+        return rescaleIdInfo;
+    }
+
+    @Nullable
     public String getStringifiedException() {
         return stringifiedException;
     }
 
-    private boolean isTerminated() {
+    boolean isTerminated() {
         return terminalState != null;
     }
 
@@ -229,6 +238,11 @@ public class Rescale implements Serializable {
         return this;
     }
 
+    public Rescale setStartToNow() {
+        setStartTimestamp(Instant.now().toEpochMilli());
+        return this;
+    }
+
     public Long getStartTimestamp() {
         return startTimestamp;
     }
@@ -238,6 +252,11 @@ public class Rescale implements Serializable {
             LOG.warn("The old endTimestamp was already set to '{}'", this.endTimestamp);
         }
         this.endTimestamp = endTimestamp;
+        return this;
+    }
+
+    public Rescale setEndToNow() {
+        setEndTimestamp(Instant.now().toEpochMilli());
         return this;
     }
 
